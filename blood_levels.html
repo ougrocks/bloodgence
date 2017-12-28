@@ -1,0 +1,162 @@
+<?php 
+
+if(empty($_POST) === false)
+{
+require 'config.php';
+
+
+$user = $_POST['username'];
+$pass = $_POST['password'];
+
+
+$query  =   $db->query("SELECT `username`,`password` FROM `inventory` WHERE `username` = '".$user."' and `password` = '".$pass."' ");
+         if(!empty($query))
+         {
+             $count= $query->rowCount();
+             if($count != 0)
+                 
+             {
+                 session_start();
+
+                $_SESSION['username']= $user;
+               
+
+                 $blood = $db->query("SELECT `A+`,`A-`,`B+`,`B-`,`O+`,`O-`,`AB+`,`AB-` FROM `inventory` WHERE `username` = '".$user."'");
+        
+                    $group = $blood->fetch(PDO::FETCH_ASSOC);
+                   
+?>
+<html>
+	<head>
+		<title>Welcome To Bloodgence</title>
+		<!--<script src="js/bootstrap.js"></script>
+		<script src="js/bootstrap.min.js"></script>-->
+		<script src="js/materialize.min.js"></script>
+		<script src="js/materialize.js"></script>
+		
+				
+		<script scr="js/jquery-1.11.3.min.js"></script>
+		<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">-->
+		<link rel="stylesheet" type="text/css" href="css/materialize.css">
+		<link rel="stylesheet" type="text/css" href="css/materialize-min.css">
+		<style>
+		@font-face {
+			font-family: 'Stencil';
+			src: url('fonts/Stencil.ttf');
+		}
+		section {
+			font-family: Calibri;
+		}
+		nav {
+			font-family: Stencil;
+		}
+		
+		body {
+			background: url('images/fabric_of_squares_gray.png')
+		}
+		table {
+			width: 50%;
+		}
+		.input-field input {
+			border: 1px dotted rgb(38, 166, 154) !important;
+			padding: 0px 10px !important;
+			width: 40%;
+		}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<div class="nav-wrapper">
+			<center><a class="brand-logo center" href="index.html">Bloodgence</a></center>
+			</div>
+		</nav>
+		<section>
+			<center>
+			<br></br>
+			<form action="update.php" method="post">
+			<table class="bordered responsive-table">
+				<thead>
+				  <tr>
+					  <th data-field="id">Blood Group</th>
+					  <th data-field="name">Level</th>
+				  </tr>
+				</thead>
+
+				<tbody>
+				  <tr>
+					<td>O+</td>
+					<td>
+						<div class="input-field">
+						  <input id="level" type="text" name="o+quantity" placeholder="O+ Quantity" value=" <?=$group['O+'];?>"/>
+						</div>
+					</td>
+				  </tr>
+				  <tr>
+					<td>O-</td>
+					<td>
+						<div class="input-field">
+						  <input id="level" name="o-quantity" type="text" placeholder="O- Quantity" value=" <?=$group['O-'];?>">
+						</div>
+					</td>
+				  </tr>
+				  <tr>
+					<td>A+</td>
+					<td>
+						<div class="input-field">
+						  <input id="level" type="text" name="a+quantity" placeholder="A+ Quantity" value=" <?=$group['A+'];?>">
+						</div>
+					</td>
+				  </tr>
+				  <tr>
+					<td>A-</td>
+					<td>
+						<div class="input-field">
+						  <input id="level" type="text" name="a-quantity" placeholder="A- Quantity" value=" <?=$group['A-'];?>">
+						</div>
+					</td>
+				  </tr>
+				  <tr>
+					<td>B+</td>
+					<td>
+						<div class="input-field">
+						  <input id="level" type="text" name="b+quantity" placeholder="B+ Quantity" value=" <?=$group['B+'];?>">
+						</div>
+					</td>
+				  </tr>
+				  <tr>
+					<td>B-</td>
+					<td>
+						<div class="input-field">
+						  <input id="level" type="text" name="b-quantity" placeholder="B- Quantity" value=" <?=$group['B-'];?>">
+						</div>
+					</td>
+				  </tr>
+				  <tr>
+					<td>AB+</td>
+					<td>
+						<div class="input-field">
+						  <input id="level" type="text" name="ab+quantity" placeholder="AB+ Quantity" value=" <?=$group['AB+'];?>">
+						</div>
+					</td>
+				  </tr>
+				  <tr>
+					<td>AB-</td>
+					<td>
+						<div class="input-field">
+						  <input id="level" type="text" name="ab-quantity" placeholder="AB- Quantity" value=" <?=$group['AB-'];?>">
+						</div>
+					</td>
+				  </tr>
+				</tbody>
+			</table>
+			<br>
+			<button class="btn waves-effect waves-light" type="submit" name="action">Update
+					
+			</button>
+			</form>
+			</center>
+		</section>
+	</body>
+</html>
