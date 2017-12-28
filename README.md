@@ -20,6 +20,8 @@ stuffs, those days. Eventually after lot many discussion and round about, we (my
   Hackathon dates: 28-29 May, 2015. | Venue: Innovaccer |
   https://goo.gl/uiKNdA
   
+  Project was made in year 2015, so no support.
+  
   [+] Happy Coding
   
  
